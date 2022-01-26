@@ -16,6 +16,7 @@ const ProductoSchema = Schema({
         ref: 'Usuario',
         required: true
     },
+
     precio: {
         type: Number,
         default: 0
@@ -28,13 +29,17 @@ const ProductoSchema = Schema({
     descripcion: { type: String },
     disponible: { type: Boolean, defult: true },
     img: { type: String },
+    stock: { type: Number },
+    medida: { type: Number },
+    referencia: { type: String }
+
 });
 
 
-ProductoSchema.methods.toJSON = function() {
-    const { __v, estado, ...data  } = this.toObject();
+ProductoSchema.methods.toJSON = function () {
+    const { __v, estado, ...data } = this.toObject();
     return data;
 }
 
 
-module.exports = model( 'Producto', ProductoSchema );
+module.exports = model('Producto', ProductoSchema);
