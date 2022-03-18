@@ -1,5 +1,5 @@
 const Role = require('../models/role');
-const { Usuario, Categoria, Producto, Medida } = require('../models');
+const { Usuario, Categoria, Producto, Medida, Larva, Balanceado, Cosecha, Piscina, Insumo, Proveedor, Alimentacion } = require('../models');
 
 const esRoleValido = async (rol = 'USER_ROLE') => {
 
@@ -61,6 +61,94 @@ const existeMedidaPorId = async (id) => {
         throw new Error(`El id no existe ${id}`);
     }
 }
+/**
+ * Larva
+ */
+const existeLarvaPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const exiteLarva = await Larva.findById(id);
+    if (!exiteLarva) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Balanceado
+ */
+const existeBalanceadoPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const exiteBalanceado = await Balanceado.findById(id);
+    if (!exiteBalanceado) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Cosecha
+ */
+const existeCosechaPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const existeCosecha = await Cosecha.findById(id);
+    if (!existeCosecha) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Cosecha
+ */
+const existePiscinaPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const existePiscina = await Piscina.findById(id);
+    if (!existePiscina) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * PROVEEDOR
+ */
+const existeProveedorPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const existeProveedor = await Proveedor.findById(id);
+    if (!existeProveedor) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Cosecha
+ */
+const existeSolicitudPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const existeSolicitud = await Solicitud.findById(id);
+    if (!existeSolicitud) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Cosecha
+ */
+const existeInsumoPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const existeInsumo = await Insumo.findById(id);
+    if (!existeInsumo) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Cosecha
+ */
+const existeAlimentacionPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const exiteAlimentacion = await Alimentacion.findById(id);
+    if (!exiteAlimentacion) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
 
 /**
  * Validar colecciones permitidas
@@ -82,6 +170,13 @@ module.exports = {
     existeCategoriaPorId,
     existeProductoPorId,
     coleccionesPermitidas,
-    existeMedidaPorId
+    existeMedidaPorId,
+    existeLarvaPorId,
+    existeBalanceadoPorId,
+    existeCosechaPorId,
+    existePiscinaPorId,
+    existeInsumoPorId,
+    existeSolicitudPorId
+
 }
 

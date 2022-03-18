@@ -18,6 +18,17 @@ class Server {
             usuarios: '/api/usuarios',
             uploads: '/api/uploads',
             medidas: '/api/medidas',
+            mailer: '/api/sendmailer',
+            cosecha: '/api/cosecha',
+            piscina: '/api/piscina',
+            solicitud: '/api/solicitud',
+            insumo: '/api/insumos',
+            balanceado: '/api/balanceado',
+            proveedor: '/api/proveedor',
+            larva: '/api/larva',
+            alimentacion: '/api/alimentacion',
+            modulo: '/api/modulos',
+            permiso: '/api/permisos',
         }
 
 
@@ -59,12 +70,24 @@ class Server {
     routes() {
 
         this.app.use(this.paths.auth, require('../routes/auth'));
+        //RUTAS APARTES
         this.app.use(this.paths.buscar, require('../routes/buscar'));
         this.app.use(this.paths.categorias, require('../routes/categorias'));
         this.app.use(this.paths.productos, require('../routes/productos'));
         this.app.use(this.paths.usuarios, require('../routes/usuarios'));
         this.app.use(this.paths.uploads, require('../routes/uploads'));
         this.app.use(this.paths.medidas, require('../routes/medidas'));
+        this.app.use(this.paths.mailer, require('../routes/mailer'));
+
+        this.app.use(this.paths.solicitud, require('../routes/solicitud'));
+        this.app.use(this.paths.piscina, require('../routes/piscinas'));
+        this.app.use(this.paths.cosecha, require('../routes/cosechas'));
+        this.app.use(this.paths.proveedor, require('../routes/proveedores'));
+        this.app.use(this.paths.balanceado, require('../routes/balanceados'));
+        this.app.use(this.paths.larva, require('../routes/larvas'));
+        this.app.use(this.paths.insumo, require('../routes/insumo'));
+        this.app.use(this.paths.alimentacion, require('../routes/alimentacion'));
+        //PROYECTO CRYTO
 
     }
 
