@@ -1,5 +1,6 @@
 const Role = require('../models/role');
-const { Usuario, Categoria, Producto, Medida, Larva, Balanceado, Cosecha, Piscina, Insumo, Proveedor, Alimentacion } = require('../models');
+const { Usuario, Categoria, Producto, Medida, Larva, Balanceado,
+    Cosecha, Piscina, Insumo, Proveedor, Alimentacion, Permiso, Modulo } = require('../models');
 
 const esRoleValido = async (rol = 'USER_ROLE') => {
 
@@ -139,6 +140,28 @@ const existeInsumoPorId = async (id) => {
     }
 }
 /**
+ * Permiso
+ */
+const existePermisoPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const exitePermiso = await Permiso.findById(id);
+    if (!exitePermiso) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
+ * Permiso
+ */
+const existeModuloPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const exiteModulo = await Modulo.findById(id);
+    if (!exiteModulo) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
+/**
  * Cosecha
  */
 const existeAlimentacionPorId = async (id) => {
@@ -176,7 +199,10 @@ module.exports = {
     existeCosechaPorId,
     existePiscinaPorId,
     existeInsumoPorId,
-    existeSolicitudPorId
+    existeSolicitudPorId,
+    existeAlimentacionPorId,
+    existePermisoPorId,
+    existeModuloPorId
 
 }
 
