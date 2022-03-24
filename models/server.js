@@ -87,6 +87,8 @@ class Server {
         this.app.use(this.paths.larva, require('../routes/larvas'));
         this.app.use(this.paths.insumo, require('../routes/insumo'));
         this.app.use(this.paths.alimentacion, require('../routes/alimentacion'));
+        this.app.use(this.paths.modulo, require('../routes/modulos'));
+        this.app.use(this.paths.permiso, require('../routes/permisos'));
         //PROYECTO CRYTO
 
     }

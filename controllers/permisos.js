@@ -11,6 +11,32 @@ const obtenerPermisos = async (req, res = response) => {
         Permiso.countDocuments(query),
         Permiso.find(query)
             .populate('usuario', 'nombre')
+            .populate('codigo', 'nombre')
+            .populate('modulo', 'nombre')
+        // .skip( Number( desde ) )
+        // .limit(Number( limite ))
+    ]);
+
+    res.json({
+        total,
+        permisos
+    });
+}
+
+
+const obtenerPermisosUsuario = async (req, res = response) => {
+
+    const { codigo } = req.params;
+
+    // const { limite = 5, desde = 0 } = req.query;
+    const query = { estado: true, codigo: codigo };
+
+    const [total, permisos] = await Promise.all([
+        Permiso.countDocuments(query),
+        Permiso.find(query)
+            .populate('usuario', 'nombre')
+            .populate('codigo', 'nombre')
+            .populate('modulo')
         // .skip( Number( desde ) )
         // .limit(Number( limite ))
     ]);
@@ -61,6 +87,8 @@ const crearPermiso = async (req, res = response) => {
 
     await permiso
         .populate('usuario', 'nombre')
+        .populate('codigo', 'nombre')
+        .populate('modulo')
         .execPopulate();
 
     res.status(201).json(permiso);
@@ -89,6 +117,58 @@ const borrarPermiso = async (req, res = response) => {
 }
 
 
+const crearPermisRol = async (req, res = response) => {
+
+    const { codigo, rol } = req.body;
+
+    let permisoBiologo = ["623863d77896622bbc26da7d", "623863e87896622bbc26da7e", "623863f87896622bbc26da7f"]
+    let permisoAdministrado = [];
+
+    if (rol == "biologo") {
+
+        permisoBiologo.forEach(async function (elemento, indice, array) {
+            // Generar la data a guardar
+            var modulo = elemento;
+            const data = {
+                codigo,
+                modulo,
+                usuario: req.usuario._id
+            }
+
+            var permiso = new Permiso(data);
+            // Guardar DB
+            await permiso.save();
+        })
+
+    }
+
+
+
+
+
+    /*     else if (rol == "director")
+            permisoBilogo.forEach(function (elemento, indice, array) {
+                // Generar la data a guardar
+                const data = {
+                    codigo,
+                    elemento,
+                    usuario: req.usuario._id
+                }
+    
+                const permiso = new Permiso(data);
+    
+                // Guardar DB
+                await permiso.save();
+            })
+        else
+            return res.status(400).json({
+                msg: `Ocurrio un error`
+            }); */
+
+    res.status(201).json(true);
+
+}
+
 
 
 module.exports = {
@@ -96,5 +176,7 @@ module.exports = {
     obtenerPermisos,
     obtenerPermiso,
     actualizarPermiso,
-    borrarPermiso
+    borrarPermiso,
+    obtenerPermisosUsuario,
+    crearPermisRol
 }

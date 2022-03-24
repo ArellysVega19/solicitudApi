@@ -4,7 +4,9 @@ const { check } = require('express-validator');
 const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
 
 const { crearPermiso,
+    crearPermisRol,
     obtenerPermisos,
+    obtenerPermisosUsuario,
     obtenerPermiso,
     actualizarPermiso,
     borrarPermiso } = require('../controllers/permisos');
@@ -26,6 +28,10 @@ router.get('/:id', [
     validarCampos,
 ], obtenerPermiso);
 
+// Obtener una permiso por usuario - publico
+router.get('/getUsuario/:codigo', [
+], obtenerPermisosUsuario);
+
 // Crear permiso - privado - cualquier persona con un token válido
 router.post('/', [
     validarJWT,
@@ -44,6 +50,12 @@ router.delete('/:id', [
     check('id').custom(existePermisoPorId),
     validarCampos,
 ], borrarPermiso);
+
+// Crear permiso - privado - cualquier persona con un token válido
+router.post('/roles', [
+    validarJWT,
+], crearPermisRol);
+
 
 
 

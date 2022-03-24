@@ -2,8 +2,9 @@ const { Schema, model } = require('mongoose');
 
 const PermisoSchema = Schema({
     codigo: {
-        type: String,
-        required: [true, 'El codigo es obligatorio']
+        type: Schema.Types.ObjectId,
+        ref: 'Usuario',
+        required: true
     },
     modulo: {
         type: Schema.Types.ObjectId,
@@ -11,16 +12,20 @@ const PermisoSchema = Schema({
         required: true
     },
     insertar: {
-        type: String
+        type: Boolean,
+        default: false,
     },
     consultar: {
-        type: String
+        type: Boolean,
+        default: false,
     },
     anular: {
-        type: String
+        type: Boolean,
+        default: false,
     },
     actualizar: {
-        type: String
+        type: Boolean,
+        default: false,
     },
     estado: {
         type: Boolean,

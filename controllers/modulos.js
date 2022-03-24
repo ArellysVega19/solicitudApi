@@ -33,19 +33,23 @@ const obtenerModulo = async (req, res = response) => {
 
 const crearModulo = async (req, res = response) => {
 
-    const { nombre } = req.body;
+    const { nombre, clase, ruta, indice, observacion } = req.body;
 
-    const moduloDB = await Modulo.findOne({ nombre });
+    const moduloDB = await Modulo.findOne({ ruta });
 
     if (moduloDB) {
         return res.status(400).json({
-            msg: `La categoria ${moduloDB.nombre}, ya existe`
+            msg: `La ruta ${moduloDB.ruta}, ya existe`
         });
     }
 
     // Generar la data a guardar
     const data = {
         nombre,
+        clase,
+        ruta,
+        indice,
+        observacion,
         usuario: req.usuario._id
     }
 
