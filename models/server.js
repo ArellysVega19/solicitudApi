@@ -29,6 +29,7 @@ class Server {
             alimentacion: '/api/alimentacion',
             modulo: '/api/modulos',
             permiso: '/api/permisos',
+            adicional: '/api/adicional',
         }
 
 
@@ -89,6 +90,7 @@ class Server {
         this.app.use(this.paths.alimentacion, require('../routes/alimentacion'));
         this.app.use(this.paths.modulo, require('../routes/modulos'));
         this.app.use(this.paths.permiso, require('../routes/permisos'));
+        this.app.use(this.paths.adicional, require('../routes/adicional'));
         //PROYECTO CRYTO
 
     }

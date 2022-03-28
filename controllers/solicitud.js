@@ -24,6 +24,34 @@ const obtenerSolicituds = async (req, res = response) => {
     });
 }
 
+const obtenerSolicitudRango = async (req, res = response) => {
+
+    const { fechaInicial, fechaFinal } = req.body;
+    const query = { estado: true };
+
+
+    const [total, solicituds] = await Promise.all([
+        Solicitud.countDocuments(query),
+        Solicitud.find({
+            $and: [
+                { fecha: { $gte: new Date(fechaInicial) } },
+                { fecha: { $lte: new Date(fechaFinal) } }
+            ]
+        })
+            .populate('usuario', 'nombre')
+            .populate('balanceado')
+            .populate('insumo')
+            .populate('proveedor')
+        // .skip( Number( desde ) )
+        // .limit(Number( limite ))
+    ]);
+
+    res.json({
+        total,
+        solicituds
+    });
+}
+
 const obtenerSolicitud = async (req, res = response) => {
 
     const { id } = req.params;
@@ -93,5 +121,6 @@ module.exports = {
     obtenerSolicituds,
     obtenerSolicitud,
     actualizarSolicitud,
-    borrarSolicitud
+    borrarSolicitud,
+    obtenerSolicitudRango
 }

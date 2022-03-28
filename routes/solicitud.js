@@ -7,6 +7,7 @@ const { crearSolicitud,
     obtenerSolicituds,
     obtenerSolicitud,
     actualizarSolicitud,
+    obtenerSolicitudRango,
     borrarSolicitud } = require('../controllers/solicitud');
 const { existeSolicitudPorId } = require('../helpers/db-validators');
 
@@ -35,7 +36,6 @@ router.post('/', [
 router.put('/:id', [
     validarJWT,
     check('id').custom(existeSolicitudPorId),
-    validarCampos
 ], actualizarSolicitud);
 
 // Borrar una categoria - Admin
@@ -46,6 +46,8 @@ router.delete('/:id', [
     validarCampos,
 ], borrarSolicitud);
 
+
+router.post('/rangofecha/filtro', obtenerSolicitudRango);
 
 
 module.exports = router;

@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const SolicitudSchema = Schema({
     fecha: {
-        type: String
+        type: Date,
+        default: new Date()
     },
     balanceado: {
         type: Schema.Types.ObjectId,

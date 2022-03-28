@@ -1,6 +1,6 @@
 const Role = require('../models/role');
 const { Usuario, Categoria, Producto, Medida, Larva, Balanceado,
-    Cosecha, Piscina, Insumo, Proveedor, Alimentacion, Permiso, Modulo } = require('../models');
+    Cosecha, Piscina, Insumo, Proveedor, Alimentacion, Permiso, Modulo, Adicional } = require('../models');
 
 const esRoleValido = async (rol = 'USER_ROLE') => {
 
@@ -172,6 +172,17 @@ const existeAlimentacionPorId = async (id) => {
         throw new Error(`El id no existe ${id}`);
     }
 }
+/**
+ * Cosecha
+ */
+const existeAdicionalPorId = async (id) => {
+
+    // Verificar si el correo existe
+    const exiteAdicional = await Adicional.findById(id);
+    if (!exiteAdicional) {
+        throw new Error(`El id no existe ${id}`);
+    }
+}
 
 /**
  * Validar colecciones permitidas
@@ -202,7 +213,9 @@ module.exports = {
     existeSolicitudPorId,
     existeAlimentacionPorId,
     existePermisoPorId,
-    existeModuloPorId
+    existeModuloPorId,
+    existeProveedorPorId,
+    existeAdicionalPorId
 
 }
 

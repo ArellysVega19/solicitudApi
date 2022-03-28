@@ -16,6 +16,7 @@ const Solicitud = require('./solicitud')
 const Alimentacion = require('./alimentacion')
 const Modulo = require('./modulo')
 const Permiso = require('./permiso')
+const Adicional = require('./adicional')
 
 
 
@@ -36,6 +37,7 @@ module.exports = {
     Solicitud,
     Alimentacion,
     Modulo,
-    Permiso
+    Permiso,
+    Adicional
 }
 

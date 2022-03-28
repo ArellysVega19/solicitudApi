@@ -37,6 +37,7 @@ const obtenerPermisosUsuario = async (req, res = response) => {
             .populate('usuario', 'nombre')
             .populate('codigo', 'nombre')
             .populate('modulo')
+        //.populate({ path: 'modulo', select: ['_id', 'nombre', "clase", "ruta", "indice", "observacion"] })
         // .skip( Number( desde ) )
         // .limit(Number( limite ))
     ]);
@@ -123,6 +124,8 @@ const crearPermisRol = async (req, res = response) => {
 
     let permisoBiologo = ["623863d77896622bbc26da7d", "623863e87896622bbc26da7e", "623863f87896622bbc26da7f"]
     let permisoAdministrado = [];
+    let permisoAgente = [];
+    let permisoDirector = [];
 
     if (rol == "biologo") {
 
