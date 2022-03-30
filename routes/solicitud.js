@@ -8,6 +8,7 @@ const { crearSolicitud,
     obtenerSolicitud,
     actualizarSolicitud,
     obtenerSolicitudRango,
+    obtenerSolicitudRango1,
     borrarSolicitud } = require('../controllers/solicitud');
 const { existeSolicitudPorId } = require('../helpers/db-validators');
 
@@ -48,6 +49,7 @@ router.delete('/:id', [
 
 
 router.post('/rangofecha/filtro', obtenerSolicitudRango);
+router.post('/rangofecha/aprovaal', obtenerSolicitudRango1);
 
 
 module.exports = router;
