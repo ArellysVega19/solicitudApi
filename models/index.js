@@ -17,6 +17,7 @@ const Alimentacion = require('./alimentacion')
 const Modulo = require('./modulo')
 const Permiso = require('./permiso')
 const Adicional = require('./adicional')
+const Block = require('./block')
 
 
 
@@ -38,6 +39,7 @@ module.exports = {
     Alimentacion,
     Modulo,
     Permiso,
-    Adicional
+    Adicional,
+    Block
 }
 

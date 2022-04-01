@@ -32,7 +32,7 @@ class Block {
             let decodedData = hex2ascii(encodedData);
             let dataObject = JSON.parse(decodedData);
 
-            if (dataObject === "Genesis Block") {
+            if (dataObject === "5678956789756789") {
                 reject(new Error("This is the Genesis Block"));
             }
 

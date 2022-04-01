@@ -1,7 +1,6 @@
 const { response } = require('express');
 const Blockchain = require('../helpers/blockchain');
-const { Solicitud } = require('../models');
-const Block = require('../models/block');
+const { Solicitud, Block } = require('../models');
 
 
 
@@ -152,21 +151,6 @@ const borrarSolicitud = async (req, res = response) => {
 }
 
 
-const presentarModulo = async (req, res = response) => {
-
-    const blockchain = await new Blockchain();
-    const block1 = new Block({ data: "usuario: jordana", credito: "200" });
-    await blockchain.addBlock(block1);
-    const block2 = new Block({ data: "usuario: jordana", credito: "100" });
-    await blockchain.addBlock(block2);
-    const block3 = new Block({ data: "usuario: jordana", credito: "50" });
-    await blockchain.addBlock(block3);
-
-    blockchain.print();
-
-    res.json(blockchain);
-}
-
 
 
 module.exports = {
@@ -176,6 +160,5 @@ module.exports = {
     actualizarSolicitud,
     borrarSolicitud,
     obtenerSolicitudRango,
-    obtenerSolicitudRango1,
-    presentarModulo
+    obtenerSolicitudRango1
 }

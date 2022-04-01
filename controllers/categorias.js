@@ -1,18 +1,20 @@
 const { response } = require('express');
-const { Categoria } = require('../models');
+const Blockchain = require('../helpers/blockchain');
+const { Categoria, Block } = require('../models');
+const { where } = require('../models/categoria');
 
 
-const obtenerCategorias = async(req, res = response ) => {
+const obtenerCategorias = async (req, res = response) => {
 
     // const { limite = 5, desde = 0 } = req.query;
     const query = { estado: true };
 
-    const [ total, categorias ] = await Promise.all([
+    const [total, categorias] = await Promise.all([
         Categoria.countDocuments(query),
         Categoria.find(query)
             .populate('usuario', 'nombre')
-            // .skip( Number( desde ) )
-            // .limit(Number( limite ))
+        // .skip( Number( desde ) )
+        // .limit(Number( limite ))
     ]);
 
     res.json({
@@ -21,35 +23,46 @@ const obtenerCategorias = async(req, res = response ) => {
     });
 }
 
-const obtenerCategoria = async(req, res = response ) => {
+const obtenerCategoriasUsuario = async (req, res = response) => {
 
     const { id } = req.params;
-    const categoria = await Categoria.findById( id )
-                            .populate('usuario', 'nombre');
+    const query = { estado: true, nombre: id };
 
-    res.json( categoria );
+    const [total, categorias] = await Promise.all([
+        Categoria.countDocuments(query),
+        Categoria.find(query).sort({ $natural: -1 }).limit(1)
+            .populate('usuario', 'nombre')
+        // .skip( Number( desde ) )
+        // .limit(Number( limite ))
+    ]);
+
+    res.json({
+        total,
+        categorias
+    });
+}
+
+const obtenerCategoria = async (req, res = response) => {
+
+    const { id } = req.params;
+    const categoria = await Categoria.findOne({ estado: true, nombre: id }).sort({ $natural: -1 }).limit(1)
+        .populate('usuario', 'nombre');
+
+    res.json(categoria);
 
 }
 
-const crearCategoria = async(req, res = response ) => {
+const crearCategoria = async (req, res = response) => {
 
-    const { nombre } = req.body;
+    const { nombre, credito } = req.body;
 
-    const categoriaDB = await Categoria.findOne({ nombre });
-
-    if ( categoriaDB ) {
-        return res.status(400).json({
-            msg: `La categoria ${ categoriaDB.nombre }, ya existe`
-        });
-    }
-
-    // Generar la data a guardar
     const data = {
         nombre,
+        credito,
         usuario: req.usuario._id
     }
 
-    const categoria = new Categoria( data );
+    const categoria = new Categoria(data);
 
     // Guardar DB
     await categoria.save();
@@ -62,7 +75,7 @@ const crearCategoria = async(req, res = response ) => {
 
 }
 
-const actualizarCategoria = async( req, res = response ) => {
+const actualizarCategoria = async (req, res = response) => {
 
     const { id } = req.params;
     const { estado, usuario, ...data } = req.body;
@@ -71,16 +84,36 @@ const actualizarCategoria = async( req, res = response ) => {
 
     const categoria = await Categoria.findByIdAndUpdate(id, data, { new: true });
 
-    res.json( categoria );
+    res.json(categoria);
 
 }
 
-const borrarCategoria = async(req, res =response ) => {
+const borrarCategoria = async (req, res = response) => {
 
     const { id } = req.params;
-    const categoriaBorrada = await Categoria.findByIdAndUpdate( id, { estado: false }, {new: true });
+    const categoriaBorrada = await Categoria.findByIdAndUpdate(id, { estado: false }, { new: true });
 
-    res.json( categoriaBorrada );
+    res.json(categoriaBorrada);
+}
+
+
+const presentarModulo = async (req, res = response) => {
+
+    const { id } = req.params;
+    const categoria = await Categoria.find({ nombre: id });
+
+    console.log(categoria.length);
+    const blockchain = new Blockchain();
+
+    categoria.forEach(async (e) => {
+        const block = new Block({ data: e.nombre, credito: e.credito });
+        await blockchain.addBlock(block);
+        console.log(block.toString());
+    });
+
+    //await blockchain.addBlock(block);
+
+    res.status(201).json("Ok Cadena creada");
 }
 
 
@@ -91,5 +124,7 @@ module.exports = {
     obtenerCategorias,
     obtenerCategoria,
     actualizarCategoria,
-    borrarCategoria
+    borrarCategoria,
+    presentarModulo,
+    obtenerCategoriasUsuario
 }

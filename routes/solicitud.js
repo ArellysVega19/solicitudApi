@@ -9,14 +9,13 @@ const { crearSolicitud,
     actualizarSolicitud,
     obtenerSolicitudRango,
     obtenerSolicitudRango1,
-    presentarModulo,
     borrarSolicitud } = require('../controllers/solicitud');
 const { existeSolicitudPorId } = require('../helpers/db-validators');
 
 const router = Router();
 
 /**
- * {{url}}/api/categorias
+ * {{url}}/api/solicitud
  */
 
 //  Obtener todas las categorias - publico
@@ -51,7 +50,6 @@ router.delete('/:id', [
 
 router.post('/rangofecha/filtro', obtenerSolicitudRango);
 router.post('/rangofecha/aprovaal', obtenerSolicitudRango1);
-router.get('/presentacion/block', presentarModulo);
 
 
 module.exports = router;

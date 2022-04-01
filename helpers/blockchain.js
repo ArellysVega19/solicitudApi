@@ -10,8 +10,8 @@ class Blockchain {
 
     async initializeChain() {
         if (this.height === -1) {
-            const block = new Block({ data: "usuario: jordana", credito: "0.0" });
-            await this.addBlock(block);
+            /* const block = new Block({ data: "5678956789756789", credito: "140" });
+            await this.addBlock(block); */
         }
     }
 
