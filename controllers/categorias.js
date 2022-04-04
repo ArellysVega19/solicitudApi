@@ -1,8 +1,8 @@
 const { response } = require('express');
 const Blockchain = require('../helpers/blockchain');
 const { Categoria, Block } = require('../models');
-const { where } = require('../models/categoria');
 
+const blockchain = new Blockchain();
 
 const obtenerCategorias = async (req, res = response) => {
 
@@ -97,23 +97,18 @@ const borrarCategoria = async (req, res = response) => {
 }
 
 
-const presentarModulo = async (req, res = response) => {
+const generarBlock = async (req, res = response) => {
 
-    const { id } = req.params;
-    const categoria = await Categoria.find({ nombre: id });
+    try {
+        const { nombre, credito } = req.body;
+        const block = new Block({ data: nombre, credito: credito });
+        const resp = await blockchain.addBlock(block);
+        console.log(resp);
+    } catch (error) {
+        res.status(400).json(error);
+    }
 
-    console.log(categoria.length);
-    const blockchain = new Blockchain();
-
-    categoria.forEach(async (e) => {
-        const block = new Block({ data: e.nombre, credito: e.credito });
-        await blockchain.addBlock(block);
-        console.log(block.toString());
-    });
-
-    //await blockchain.addBlock(block);
-
-    res.status(201).json("Ok Cadena creada");
+    res.status(201).json("OK-REGISTRO GENERADO");
 }
 
 
@@ -125,6 +120,6 @@ module.exports = {
     obtenerCategoria,
     actualizarCategoria,
     borrarCategoria,
-    presentarModulo,
+    generarBlock,
     obtenerCategoriasUsuario
 }

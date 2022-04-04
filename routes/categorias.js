@@ -7,7 +7,7 @@ const { crearCategoria,
     obtenerCategorias,
     obtenerCategoria,
     actualizarCategoria,
-    presentarModulo,
+    generarBlock,
     obtenerCategoriasUsuario,
     borrarCategoria } = require('../controllers/categorias');
 const { existeCategoriaPorId } = require('../helpers/db-validators');
@@ -47,7 +47,7 @@ router.delete('/:id', [
 ], borrarCategoria);
 
 
-router.get('/consultar/cadena/crypto/:id', presentarModulo);
+router.post('/consultar/cadena/crypto', generarBlock);
 router.get('/consultar/usuario/:id', obtenerCategoriasUsuario);
 
 

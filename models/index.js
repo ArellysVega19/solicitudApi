@@ -18,6 +18,7 @@ const Modulo = require('./modulo')
 const Permiso = require('./permiso')
 const Adicional = require('./adicional')
 const Block = require('./block')
+const Movimiento = require('./movimiento')
 
 
 
@@ -40,6 +41,7 @@ module.exports = {
     Modulo,
     Permiso,
     Adicional,
-    Block
+    Block,
+    Movimiento
 }
 

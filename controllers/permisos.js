@@ -122,14 +122,48 @@ const crearPermisRol = async (req, res = response) => {
 
     const { codigo, rol } = req.body;
 
-    let permisoBiologo = ["623863d77896622bbc26da7d", "623863e87896622bbc26da7e", "623863f87896622bbc26da7f"]
-    let permisoAdministrado = [];
-    let permisoAgente = [];
+    let permisoBiologo = ["623863af7896622bbc26da7c", "623863d77896622bbc26da7d", "623863e87896622bbc26da7e", "623863f87896622bbc26da7f"]
+    let permisoAdministrado = ["623863af7896622bbc26da7c", "6238640e7896622bbc26da80", "623864c87896622bbc26da81", "62412398069efc476c5bcb38", "624123b4069efc476c5bcb39",
+        "624123e8069efc476c5bcb3b", "6244411a69d9345848a7eb08"];
+    let permisoAgente = ["624123b4069efc476c5bcb39", "624123cb069efc476c5bcb3a"];
     let permisoDirector = [];
 
-    if (rol == "biologo") {
+    if (rol == "Biólogo") {
 
         permisoBiologo.forEach(async function (elemento, indice, array) {
+            // Generar la data a guardar
+            var modulo = elemento;
+            const data = {
+                codigo,
+                modulo,
+                usuario: req.usuario._id
+            }
+
+            var permiso = new Permiso(data);
+            // Guardar DB
+            await permiso.save();
+        })
+
+    } else if (rol == "Administrador") {
+
+        permisoAdministrado.forEach(async function (elemento, indice, array) {
+            // Generar la data a guardar
+            var modulo = elemento;
+            const data = {
+                codigo,
+                modulo,
+                usuario: req.usuario._id
+            }
+
+            var permiso = new Permiso(data);
+            // Guardar DB
+            await permiso.save();
+        })
+
+
+    } else if (rol == "Agente de control") {
+
+        permisoAgente.forEach(async function (elemento, indice, array) {
             // Generar la data a guardar
             var modulo = elemento;
             const data = {

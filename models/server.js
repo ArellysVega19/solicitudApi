@@ -30,6 +30,7 @@ class Server {
             modulo: '/api/modulos',
             permiso: '/api/permisos',
             adicional: '/api/adicional',
+            movimiento: '/api/movimiento',
         }
 
 
@@ -91,6 +92,7 @@ class Server {
         this.app.use(this.paths.modulo, require('../routes/modulos'));
         this.app.use(this.paths.permiso, require('../routes/permisos'));
         this.app.use(this.paths.adicional, require('../routes/adicional'));
+        this.app.use(this.paths.movimiento, require('../routes/movimientos'));
         //PROYECTO CRYTO
 
     }
