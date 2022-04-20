@@ -128,6 +128,8 @@ const crearPermisRol = async (req, res = response) => {
     let permisoAgente = ["624123b4069efc476c5bcb39", "624123cb069efc476c5bcb3a"];
     let permisoDirector = [];
 
+    console.log(rol);
+
     if (rol == "Biólogo") {
 
         permisoBiologo.forEach(async function (elemento, indice, array) {
