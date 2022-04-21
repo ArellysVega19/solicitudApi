@@ -126,7 +126,6 @@ const crearPermisRol = async (req, res = response) => {
     let permisoAdministrado = ["623863af7896622bbc26da7c", "6238640e7896622bbc26da80", "623864c87896622bbc26da81", "62412398069efc476c5bcb38", "624123b4069efc476c5bcb39",
         "624123e8069efc476c5bcb3b", "6244411a69d9345848a7eb08"];
     let permisoAgente = ["624123b4069efc476c5bcb39", "624123cb069efc476c5bcb3a"];
-    let permisoDirector = [];
 
     console.log(rol);
 
@@ -166,6 +165,22 @@ const crearPermisRol = async (req, res = response) => {
     } else if (rol == "Agente de control") {
 
         permisoAgente.forEach(async function (elemento, indice, array) {
+            // Generar la data a guardar
+            var modulo = elemento;
+            const data = {
+                codigo,
+                modulo,
+                usuario: req.usuario._id
+            }
+
+            var permiso = new Permiso(data);
+            // Guardar DB
+            await permiso.save();
+        })
+
+    } else if (rol == "director") {
+
+        permisoAdministrado.forEach(async function (elemento, indice, array) {
             // Generar la data a guardar
             var modulo = elemento;
             const data = {
