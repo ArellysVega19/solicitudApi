@@ -129,7 +129,7 @@ const crearPermisRol = async (req, res = response) => {
 
     console.log(rol);
 
-    if (rol == "Biólogo") {
+    if (rol == "BIÓLOGO") {
 
         permisoBiologo.forEach(async function (elemento, indice, array) {
             // Generar la data a guardar
@@ -145,7 +145,7 @@ const crearPermisRol = async (req, res = response) => {
             await permiso.save();
         })
 
-    } else if (rol == "Administrador") {
+    } else if (rol == "ADMINISTRADOR") {
 
         permisoAdministrado.forEach(async function (elemento, indice, array) {
             // Generar la data a guardar
@@ -162,7 +162,7 @@ const crearPermisRol = async (req, res = response) => {
         })
 
 
-    } else if (rol == "Agente de control") {
+    } else if (rol == "AGENTE DE CONTROL") {
 
         permisoAgente.forEach(async function (elemento, indice, array) {
             // Generar la data a guardar
@@ -178,7 +178,7 @@ const crearPermisRol = async (req, res = response) => {
             await permiso.save();
         })
 
-    } else if (rol == "director") {
+    } else if (rol == "DIRECTOR") {
 
         permisoAdministrado.forEach(async function (elemento, indice, array) {
             // Generar la data a guardar
