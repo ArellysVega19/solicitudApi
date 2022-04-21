@@ -60,6 +60,9 @@ const crearCosecha = async (req, res = response) => {
 
     await cosecha
         .populate('usuario', 'nombre')
+        .populate('piscina')
+        .populate('larva')
+        .populate('balanceado')
         .execPopulate();
 
     res.status(201).json(cosecha);
