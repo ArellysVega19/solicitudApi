@@ -7,8 +7,9 @@ const { crearAlimentacion,
     obtenerAlimentacions,
     obtenerAlimentacion,
     actualizarAlimentacion,
+    obtenerAlimentacionPiscina,
     borrarAlimentacion } = require('../controllers/alimentacion');
-const { existeAlimentacionPorId } = require('../helpers/db-validators');
+const { existeAlimentacionPorId, existePiscinaPorId } = require('../helpers/db-validators');
 
 const router = Router();
 
@@ -25,6 +26,9 @@ router.get('/:id', [
     check('id').custom(existeAlimentacionPorId),
     validarCampos,
 ], obtenerAlimentacion);
+
+// Obtener una categoria por id - publico
+router.get('/piscina/:id', obtenerAlimentacionPiscina);
 
 // Crear categoria - privado - cualquier persona con un token válido
 router.post('/', [

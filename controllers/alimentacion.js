@@ -37,6 +37,21 @@ const obtenerAlimentacion = async (req, res = response) => {
 
 }
 
+const obtenerAlimentacionPiscina = async (req, res = response) => {
+    const total = 0;
+    const { id } = req.params;
+    const alimentacions = await Alimentacion.find({ piscina: id, estado: true }).sort({ registro: 1 })
+        .populate('usuario', 'nombre')
+        .populate('piscina')
+        .populate('larva')
+        .populate('balanceado');
+
+    res.json({
+        total,
+        alimentacions
+    });
+}
+
 const crearAlimentacion = async (req, res = response) => {
 
     const { registro, balanceado, piscina, frecuencia, hsembradas, inicio, hcosechadas,
@@ -104,5 +119,6 @@ module.exports = {
     obtenerAlimentacions,
     obtenerAlimentacion,
     actualizarAlimentacion,
-    borrarAlimentacion
+    borrarAlimentacion,
+    obtenerAlimentacionPiscina
 }
