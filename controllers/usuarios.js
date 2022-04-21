@@ -6,11 +6,8 @@ const Usuario = require('../models/usuario');
 const { generarJWT } = require('../helpers');
 
 const getUsuarioPorId = async (req = request, res = response) => {
-
     const { id } = req.params;
-
     const usuario = await Usuario.findById(id);
-
     res.json(usuario);
 }
 
